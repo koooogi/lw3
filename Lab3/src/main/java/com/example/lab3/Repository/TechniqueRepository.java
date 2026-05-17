@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.example.lab3.Repository;
 
-/**
- *
- * @author kogi <astronaut.kogi@gmail.com>
- */
-public class TechniqueRepository {
-    
-}
+import com.example.lab3.Model.Technique;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface TechniqueRepository extends JpaRepository<Technique, Long>{}

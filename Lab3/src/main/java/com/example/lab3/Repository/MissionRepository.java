@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.example.lab3.Repository;
 
-/**
- *
- * @author kogi <astronaut.kogi@gmail.com>
- */
-public class MissionRepository {
-    
+import com.example.lab3.Model.Mission;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.Optional;
+
+@Repository
+public interface MissionRepository extends JpaRepository<Mission, Long>{
+    Optional<Mission> findByMissionId(String missionId);
 }
