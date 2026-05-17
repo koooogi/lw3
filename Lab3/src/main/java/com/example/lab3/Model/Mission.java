@@ -3,6 +3,7 @@ package com.example.lab3.Model;
 import com.example.lab3.ENUMs.Outcome;
 import com.example.lab3.Converter.JsonMapConverter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class Mission {
     private Long id;
     
     @Column(name = "mission_id", unique = true)
+    @JsonProperty("missionId")
     private String missionId;
     private String date;
     private String location;
@@ -25,20 +27,20 @@ public class Mission {
     @Enumerated(EnumType.STRING)
     private Outcome outcome;
 
+    @JsonProperty("damageCost")
     private Integer damageCost;
+    
     private String note;
     private String comment;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "curse_id")
     private Curse curse;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mission_id")
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Sorcerer> sorcerers = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mission_id")
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Technique> techniques = new ArrayList<>();
     
     @Convert(converter = JsonMapConverter.class)
@@ -57,9 +59,11 @@ public class Mission {
     public void setId(Long id){ 
         this.id = id; 
     }
+    @JsonProperty("missionId")
     public String getMissionId(){ 
         return missionId; 
     }
+    @JsonProperty("missionId")
     public void setMissionId(String missionId){
         this.missionId = missionId; 
     }
@@ -85,9 +89,11 @@ public class Mission {
     public void setOutcome(String outcome){ 
         this.outcome = Outcome.fromString(outcome); 
     }
+    @JsonProperty("damageCost")
     public Integer getDamageCost(){ 
         return damageCost;
     }
+    @JsonProperty("missionId")
     public void setDamageCost(Integer damageCost){ 
         this.damageCost = damageCost; 
     }

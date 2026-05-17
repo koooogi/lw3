@@ -11,11 +11,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +39,7 @@ public class MissionController {
     private ParserService parserService;
     
     //UPLOAD MISSION
-    @PostMapping("/upload")
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Upload mission from file. Supported extensions: TXT, XML, JSON, YAML")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Mission uploaded successfully"),
@@ -54,6 +56,14 @@ public class MissionController {
         }catch(Exception e){
             return ResponseEntity.internalServerError().body("Error parsing file: " + e.getMessage());
         }
+    }
+    
+    //CREATE MISSION FROM JSON
+    @PostMapping
+    @Operation(summary = "Create mission from JSON")
+    public ResponseEntity<Mission> createMission(@RequestBody Mission mission) {
+        Mission saved = missionService.saveMission(mission);
+        return ResponseEntity.ok(saved);
     }
     
     //GET ALL MISSIONS

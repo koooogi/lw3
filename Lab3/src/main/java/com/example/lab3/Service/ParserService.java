@@ -18,21 +18,30 @@ public class ParserService {
         this.parserGenerator = new ParserGenerator();
     }
 
-    public Mission parseMissionFile(MultipartFile file) throws Exception{
-        
-        File tempFile = File.createTempFile("mission_", ".tmp");
+    public Mission parseMissionFile(MultipartFile file) throws Exception {
+        String originalFilename = file.getOriginalFilename();
+        String extension = "";
+        if(originalFilename.contains(".")){
+            extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        }
+        File tempFile = File.createTempFile("mission_", extension);
         
         try(FileOutputStream fos = new FileOutputStream(tempFile)){
             fos.write(file.getBytes());
         }
         
         Parsers parser = parserGenerator.getParser(tempFile);
-        if(parser == null){
+        
+        if (parser == null) {
+            // Логируем для отладки
+            System.out.println("Не удалось найти парсер для файла: " + originalFilename);
+            System.out.println("Расширение: " + extension);
+            System.out.println("Временный файл: " + tempFile.getAbsolutePath());
             throw new IllegalArgumentException(
-                "Unsupported file format: " + file.getOriginalFilename()
+                "Unsupported file format: " + originalFilename
             );
         }
-
+        
         MissionBuilder builder = new MissionBuilder();
         Mission mission = parser.parse(tempFile, builder);
         

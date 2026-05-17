@@ -1,6 +1,7 @@
 package com.example.lab3.Model;
 
 import com.example.lab3.ENUMs.TechniqueType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,10 +14,22 @@ public class Technique {
     
     private String name;
     
+    @ManyToOne
+    @JoinColumn(name = "mission_id")
+    private Mission mission;
+
+    public Mission getMission(){ 
+        return mission; 
+    }
+    public void setMission(Mission mission){ 
+        this.mission = mission; 
+    }
+    
     @Enumerated(EnumType.STRING)
     private TechniqueType type;
     
     @Column(name = "owner_name")
+    @JsonProperty("owner")  
     private String ownerName;
     
     @Column(name = "damage_value")
@@ -24,14 +37,14 @@ public class Technique {
     
     public Technique(){}
     
-    public Technique(String name, String type, String ownerName, Integer damage) {
+    public Technique(String name, String type, String ownerName, Integer damage){
         this.name = name;
         this.type = TechniqueType.fromString(type);
         this.ownerName = ownerName;
         this.damage = damage;
     }
-
-    public Technique(String name, TechniqueType type, String ownerName, Integer damage) {
+    
+    public Technique(String name, TechniqueType type, String ownerName, Integer damage){
         this.name = name;
         this.type = type;
         this.ownerName = ownerName;
@@ -55,11 +68,9 @@ public class Technique {
     public TechniqueType getType(){ 
         return type; 
     }
-
     public void setType(TechniqueType type){ 
         this.type = type; 
     }
-    
     public void setType(String type){ 
         this.type = TechniqueType.fromString(type); 
     }

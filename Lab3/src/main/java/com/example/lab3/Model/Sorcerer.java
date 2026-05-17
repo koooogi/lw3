@@ -13,6 +13,17 @@ public class Sorcerer {
     
     private String name;
     
+    @ManyToOne
+    @JoinColumn(name = "mission_id")
+    private Mission mission;
+
+    public Mission getMission(){ 
+        return mission; 
+    }
+    public void setMission(Mission mission){
+        this.mission = mission; 
+    }
+    
     @Enumerated(EnumType.STRING)
     private Rank rank;
     
