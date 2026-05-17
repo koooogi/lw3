@@ -6,7 +6,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/magical_analyzer
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: postgres14
+    password: postgres-14
 
   jpa:
     hibernate:
