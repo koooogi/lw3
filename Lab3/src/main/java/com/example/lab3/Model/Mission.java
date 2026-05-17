@@ -18,7 +18,7 @@ public class Mission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "mission_id", unique = true)
+    @Column(name = "mission_id")
     @JsonProperty("missionId")
     private String missionId;
     private String date;
@@ -142,5 +142,15 @@ public class Mission {
     }
     public void setAdditions(Map<String, Object> additions){ 
         this.additions = additions;
+    }
+    
+    public void addSorcerer(Sorcerer sorcerer){
+        sorcerers.add(sorcerer);
+        sorcerer.setMission(this);
+}
+
+    public void addTechnique(Technique technique){
+        techniques.add(technique);
+        technique.setMission(this);
     }
 }

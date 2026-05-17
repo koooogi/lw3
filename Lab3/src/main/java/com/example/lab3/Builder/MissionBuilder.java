@@ -102,11 +102,11 @@ public class MissionBuilder {
         mission.setOutcome(outcome);
         
         for (Sorcerer s : sorcerers) {
-            mission.getSorcerers().add(s);
+            mission.addSorcerer(s);
         }
         
         for (Technique t : techniques) {
-            mission.getTechniques().add(t);
+            mission.addTechnique(t);
         }
         
         return mission;

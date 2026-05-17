@@ -2,6 +2,8 @@ package com.example.lab3.Service;
 
 import com.example.lab3.Builder.MissionBuilder;
 import com.example.lab3.Model.Mission;
+import com.example.lab3.Model.Sorcerer;
+import com.example.lab3.Model.Technique;
 import com.example.lab3.Parsers.ParserGenerator;
 import com.example.lab3.Parsers.Parsers;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,13 @@ public class ParserService {
         
         MissionBuilder builder = new MissionBuilder();
         Mission mission = parser.parse(tempFile, builder);
+        
+        for(Sorcerer s : mission.getSorcerers()){
+            s.setMission(mission);
+        }   
+        for(Technique t : mission.getTechniques()){
+            t.setMission(mission);
+        }
         
         tempFile.delete();
         
