@@ -98,6 +98,10 @@ public class Mission {
         this.outcome = outcome;
     }
     
+    public void setOutcome(String outcome){
+        this.outcome = Outcome.fromString(outcome);
+    }
+    
     public void setOutcomeFromString(String outcome){ 
         this.outcome = Outcome.fromString(outcome); 
     }
