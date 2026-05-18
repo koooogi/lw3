@@ -1,5 +1,7 @@
 package com.example.lab3.Reports;
 
-public class ReportFormatter {
-    
+import com.example.lab3.Model.Mission;
+
+public interface ReportFormatter {
+    String format(Mission mission);
 }
