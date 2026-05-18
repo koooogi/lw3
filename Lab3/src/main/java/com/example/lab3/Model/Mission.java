@@ -194,14 +194,23 @@ public class Mission {
         return result;
     }
     
-    private String convertToJson(Object obj){
-        if(obj == null) return null;
+//    private String convertToJson(Object obj){
+//        if(obj == null) return null;
+//        try{
+//            return mapper.writeValueAsString(obj);
+//        } catch (JsonProcessingException e){
+//            return obj.toString();
+//        }
+//    }
+    
+    private String convertToJson(Object obj) {
+        if (obj == null) return null;
         try{
-            return mapper.writeValueAsString(obj);
-        } catch (JsonProcessingException e){
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+        }catch(JsonProcessingException e) {
             return obj.toString();
         }
-    }
+    }   
     
     private Object convertFromJson(String json){
         if (json == null || json.isEmpty()) return null;
