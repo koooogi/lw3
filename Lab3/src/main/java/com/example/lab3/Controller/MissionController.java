@@ -1,6 +1,8 @@
 package com.example.lab3.Controller;
 
 import com.example.lab3.Model.Mission;
+import com.example.lab3.Reports.ReportFactory;
+import com.example.lab3.Reports.ReportFormatter;
 import com.example.lab3.Service.MissionService;
 import com.example.lab3.Service.ParserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -114,5 +115,35 @@ public class MissionController {
         }
         missionService.deleteMission(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    //REPORTS
+    @GetMapping("/{id}/report")
+    @Operation(summary = "Generate mission report. Options: simple, detailed, risk")
+    public ResponseEntity<String> generateReport(@PathVariable Long id, @RequestParam(value = "type", defaultValue = "full") String type){
+    
+        return missionService.getMissionById(id).map(mission -> {
+                
+            ReportFormatter formatter;
+                
+                switch(type.toLowerCase()){
+                    case "simple":
+                        formatter = ReportFactory.createSimpleReport();
+                        break;
+                    case "detailed":
+                        formatter = ReportFactory.createDetailedReport();
+                        break;
+                    case "risk":
+                        formatter = ReportFactory.createRiskReport();
+                        break;
+                    default:
+                        formatter = ReportFactory.createFullReport();
+                        break;
+                }
+                
+                String report = formatter.format(mission);
+                return ResponseEntity.ok(report);
+            })
+            .orElse(ResponseEntity.notFound().build());
     }
 }

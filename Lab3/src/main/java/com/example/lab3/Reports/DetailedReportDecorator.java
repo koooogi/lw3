@@ -30,7 +30,7 @@ public class DetailedReportDecorator extends BaseReportFormatter{
         if (mission.getSorcerers() != null && !mission.getSorcerers().isEmpty()) {
             sb.append("=== SORCERERS ===\n");
             for (Sorcerer s : mission.getSorcerers()) {
-                sb.append("  * ").append(s.getName()).append(" [").append(s.getRank()).append("]\n");
+                sb.append("* ").append(s.getName()).append(" [").append(s.getRank()).append("]\n");
             }
             sb.append("\n");
         }
@@ -38,9 +38,9 @@ public class DetailedReportDecorator extends BaseReportFormatter{
         if (mission.getTechniques() != null && !mission.getTechniques().isEmpty()) {
             sb.append("=== TECHNIQUES ===\n");
             for (Technique t : mission.getTechniques()) {
-                sb.append("  * ").append(t.getName()).append(" [").append(t.getType()).append("]\n");
-                sb.append("    Owner: ").append(t.getOwnerName()).append("\n");
-                sb.append("    Damage: ¥").append(t.getDamage()).append("\n");
+                sb.append("* ").append(t.getName()).append(" [").append(t.getType()).append("]\n");
+                sb.append("Owner: ").append(t.getOwnerName()).append("\n");
+                sb.append("Damage: ").append(t.getDamage()).append("\n");
             }
             sb.append("\n");
         }
