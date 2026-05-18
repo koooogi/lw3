@@ -17,7 +17,7 @@ public class RiskReportDecorator extends BaseReportFormatter {
         String baseReport = super.format(mission);
         sb.append(baseReport);
         
-        sb.append("\n").append("-".repeat(50)).append("\n");
+        sb.append("\n").append("*".repeat(50)).append("\n");
         sb.append("RISK ASSESSMENT\n");
         sb.append("*".repeat(50)).append("\n\n");
         
@@ -30,9 +30,9 @@ public class RiskReportDecorator extends BaseReportFormatter {
         sb.append("  ").append(damageRisk.getDescription()).append("\n\n");
         
         RiskLevel overallRisk = calculateOverallRisk(curseRisk, damageRisk);
-        sb.append("=".repeat(30)).append("\n");
+        sb.append("*".repeat(30)).append("\n");
         sb.append("OVERALL RISK: ").append(overallRisk.getLevel()).append("\n");
-        sb.append("=".repeat(30)).append("\n");
+        sb.append("*".repeat(30)).append("\n");
         sb.append(overallRisk.getRecommendation()).append("\n");
         
         return sb.toString();

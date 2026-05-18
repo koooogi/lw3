@@ -22,13 +22,13 @@ public class DetailedReportDecorator extends BaseReportFormatter{
         sb.append("*".repeat(50)).append("\n\n");
         
         if (mission.getCurse() != null) {
-            sb.append("=== CURSE ===\n");
+            sb.append("*** CURSE ***\n");
             sb.append("Name: ").append(mission.getCurse().getName()).append("\n");
             sb.append("Threat Level: ").append(mission.getCurse().getThreatLevel()).append("\n\n");
         }
         
         if (mission.getSorcerers() != null && !mission.getSorcerers().isEmpty()) {
-            sb.append("=== SORCERERS ===\n");
+            sb.append("*** SORCERERS ***\n");
             for (Sorcerer s : mission.getSorcerers()) {
                 sb.append("* ").append(s.getName()).append(" [").append(s.getRank()).append("]\n");
             }
@@ -36,7 +36,7 @@ public class DetailedReportDecorator extends BaseReportFormatter{
         }
         
         if (mission.getTechniques() != null && !mission.getTechniques().isEmpty()) {
-            sb.append("=== TECHNIQUES ===\n");
+            sb.append("*** TECHNIQUES ***\n");
             for (Technique t : mission.getTechniques()) {
                 sb.append("* ").append(t.getName()).append(" [").append(t.getType()).append("]\n");
                 sb.append("Owner: ").append(t.getOwnerName()).append("\n");
