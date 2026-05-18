@@ -55,14 +55,14 @@ public class MissionController {
             return ResponseEntity.internalServerError().body("Error parsing file: " + e.getMessage());
         }
     }
-    
-    //CREATE MISSION FROM JSON
-    @PostMapping
-    @Operation(summary = "Create mission from JSON")
-    public ResponseEntity<Mission> createMission(@RequestBody Mission mission) {
-        Mission saved = missionService.saveMission(mission);
-        return ResponseEntity.ok(saved);
-    }
+//    
+//    //CREATE MISSION FROM JSON
+//    @PostMapping
+//    @Operation(summary = "Create mission from JSON")
+//    public ResponseEntity<Mission> createMission(@RequestBody Mission mission) {
+//        Mission saved = missionService.saveMission(mission);
+//        return ResponseEntity.ok(saved);
+//    }
     
     //GET ALL MISSIONS
     @GetMapping
