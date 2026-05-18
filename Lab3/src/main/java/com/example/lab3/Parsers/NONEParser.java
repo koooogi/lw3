@@ -78,7 +78,6 @@ public class NONEParser extends BaseParser {
                     break;
                     
                 case "MISSION_RESULT":
-                    System.out.println("DEBUG: Обрабатываем MISSION_RESULT, parts.length=" + parts.length);
                     if (parts.length >= 3){
                         outcome = parts[1];
                         String[] kv = parts[2].split("=");

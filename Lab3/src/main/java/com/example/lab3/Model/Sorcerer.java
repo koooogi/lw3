@@ -1,6 +1,7 @@
 package com.example.lab3.Model;
 
 import com.example.lab3.ENUMs.Rank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,7 @@ public class Sorcerer {
     
     @ManyToOne
     @JoinColumn(name = "mission_id")
+    @JsonIgnore
     private Mission mission;
 
     public Mission getMission(){ 

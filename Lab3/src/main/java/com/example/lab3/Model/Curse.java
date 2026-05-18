@@ -1,6 +1,7 @@
 package com.example.lab3.Model;
 
 import com.example.lab3.ENUMs.ThreatLevel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,10 @@ public class Curse {
     
     @Enumerated(EnumType.STRING)
     private ThreatLevel threatLevel;
+
+    @OneToOne(mappedBy = "curse")
+    @JsonIgnore 
+    private Mission mission;
     
     public Curse() {}
     
@@ -52,5 +57,13 @@ public class Curse {
     
     public void setThreatLevel(String threatLevel){ 
         this.threatLevel = ThreatLevel.fromString(threatLevel); 
+    }
+    
+    public Mission getMission() {
+        return mission;
+    }
+    
+    public void setMission(Mission mission) {
+        this.mission = mission;
     }
 }

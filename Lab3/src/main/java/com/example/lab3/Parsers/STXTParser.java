@@ -53,7 +53,7 @@ public class STXTParser extends BaseParser{
         
         for(String line : lines){
             
-            line = line.trim();
+            line = line.trim().toLowerCase();
             
             if(line.startsWith("[") && line.endsWith("]")){
                 section = line.substring(1, line.length() - 1).toUpperCase();
@@ -112,7 +112,7 @@ public class STXTParser extends BaseParser{
                 String key = parts[0];
                 String value = parts[1];
                 
-                if(key.equals("name")){
+                if(key.equalsIgnoreCase("name")){
                     name = value;
                 } else if(key.equals("threatLevel")){
                     lvl = value;

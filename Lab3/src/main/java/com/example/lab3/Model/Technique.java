@@ -1,6 +1,7 @@
 package com.example.lab3.Model;
 
 import com.example.lab3.ENUMs.TechniqueType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -16,6 +17,7 @@ public class Technique {
     
     @ManyToOne
     @JoinColumn(name = "mission_id")
+    @JsonIgnore
     private Mission mission;
 
     public Mission getMission(){ 

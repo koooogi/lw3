@@ -1,5 +1,6 @@
 package com.example.lab3.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +19,7 @@ public class Addition {
     
     @ManyToOne
     @JoinColumn(name = "mission_id")
+    @JsonIgnore
     private Mission mission;
     
     public Addition() {}

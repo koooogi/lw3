@@ -1,10 +1,7 @@
 package com.example.lab3.Builder;
 
-import com.example.lab3.Model.Mission;
-import com.example.lab3.Model.Curse;
-import com.example.lab3.Model.Sorcerer;
-import com.example.lab3.Model.Technique;
-import com.example.lab3.ENUMs.Outcome;
+import com.example.lab3.Model.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +21,11 @@ public class MissionBuilder {
     private List<Technique> techniques = new ArrayList<>();
     private Curse curse;
     
-    private Map<String, Object> additions = new HashMap<>();
+    private Map<String, Object> tempAdditions = new HashMap<>();
+    
+    private Mission parsedMission;
+    
+    private static final ObjectMapper mapper = new ObjectMapper();
     
     public MissionBuilder setMissionId(String missionId) {
         this.missionId = missionId;
@@ -43,11 +44,6 @@ public class MissionBuilder {
     
     public MissionBuilder setOutcome(String outcome) {
         this.outcome = outcome;
-        return this;
-    }
-    
-    public MissionBuilder setOutcome(Outcome outcome) {
-        this.outcome = outcome.name();
         return this;
     }
     
@@ -76,30 +72,51 @@ public class MissionBuilder {
         return this;
     }
     
-    public List<Sorcerer> getSorcerers() {
-        return sorcerers;
-    }
-    
     public MissionBuilder addTechnique(Technique technique) {
         this.techniques.add(technique);
         return this;
     }
     
-    public List<Technique> getTechniques() {
-        return techniques;
+    public List<Sorcerer> getSorcerers() {
+        return sorcerers;
+    }
+    
+    public MissionBuilder setParsedMission(Mission mission) {
+        this.parsedMission = mission;
+        return this;
+    }
+    
+    public MissionBuilder putAddition(String key, Object value) {
+        this.tempAdditions.put(key, value);
+        return this;
+    }
+    
+    public Object getAddition(String key) {
+        return tempAdditions.get(key);
+    }
+    
+    public Map<String, Object> getAllAdditions() {
+        return tempAdditions;
+    }
+    
+    public boolean hasAddition(String key) {
+        return tempAdditions.containsKey(key);
     }
     
     public Mission build() {
+        if (parsedMission != null) {
+            return parsedMission;
+        }
         Mission mission = new Mission();
         
-        mission.setComment(comment);
-        mission.setCurse(curse);
-        mission.setDamageCost(damageCost);
+        mission.setMissionId(missionId);
         mission.setDate(date);
         mission.setLocation(location);
-        mission.setMissionId(missionId);
-        mission.setNote(note);
         mission.setOutcome(outcome);
+        mission.setDamageCost(damageCost);
+        mission.setNote(note);
+        mission.setComment(comment);
+        mission.setCurse(curse);
         
         for (Sorcerer s : sorcerers) {
             mission.addSorcerer(s);
@@ -109,23 +126,10 @@ public class MissionBuilder {
             mission.addTechnique(t);
         }
         
+        for (Map.Entry<String, Object> entry : tempAdditions.entrySet()) {
+            mission.putAddition(entry.getKey(), entry.getValue());
+        }
+        
         return mission;
-    }
-    
-    public MissionBuilder putAddition(String key, Object value) {
-        this.additions.put(key, value);
-        return this;
-    }
-    
-    public Object getAddition(String key) {
-        return additions.get(key);
-    }
-    
-    public Map<String, Object> getAdditions() {
-        return additions;
-    }
-    
-    public boolean hasAddition(String key) {
-        return additions.containsKey(key);
     }
 }
