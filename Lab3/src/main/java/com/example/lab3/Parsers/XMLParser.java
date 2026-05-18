@@ -28,7 +28,7 @@ public class XMLParser extends BaseParser {
     public void parse(String text, MissionBuilder builder) {
         try {
             Mission mission = xm.readValue(text, Mission.class);
-            
+            normalizeMissionFields(mission);
             builder.setParsedMission(mission);
             
         } catch (IOException e) {

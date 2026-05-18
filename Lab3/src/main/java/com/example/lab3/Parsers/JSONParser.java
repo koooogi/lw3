@@ -28,6 +28,7 @@ public class JSONParser extends BaseParser {
     public void parse(String text, MissionBuilder builder){
         try{
             Mission mission = om.readValue(text, Mission.class);
+            normalizeMissionFields(mission);
             builder.setParsedMission(mission);
             
         }catch (IOException e) {

@@ -5,6 +5,10 @@ import com.example.lab3.Model.Curse;
 import com.example.lab3.Model.Sorcerer;
 import com.example.lab3.Model.Technique;
 import com.example.lab3.Builder.MissionBuilder;
+import com.example.lab3.ENUMs.Outcome;
+import com.example.lab3.ENUMs.Rank;
+import com.example.lab3.ENUMs.TechniqueType;
+import com.example.lab3.ENUMs.ThreatLevel;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -193,6 +197,70 @@ public abstract class BaseParser implements Parsers{
             } 
             else{
                 builder.addSorcerer(new Sorcerer("UNKNOWN", rank != null ? rank : "NOT STATED"));
+            }
+        }
+    }
+    
+    protected void normalizeMissionFields(Mission mission) {
+    
+        if(mission.getMissionId() == null || mission.getMissionId().isEmpty()) {
+            mission.setMissionId("NOT FOUND");
+        }
+        if(mission.getDate() == null || mission.getDate().isEmpty()) {
+            mission.setDate("NOT FOUND");
+        }
+        if(mission.getLocation() == null || mission.getLocation().isEmpty()) {
+            mission.setLocation("NOT FOUND");
+        }   
+        if(mission.getOutcome() == null) {
+            mission.setOutcome(Outcome.UNKNOWN);
+        }
+        if(mission.getDamageCost() == null) {
+            mission.setDamageCost(0);
+        }
+        if(mission.getNote() == null) {
+            mission.setNote("NOT FOUND");
+        }
+        if(mission.getComment() == null) {
+            mission.setComment("NOT FOUND");
+        }
+    
+        if(mission.getCurse() != null) {
+            if(mission.getCurse().getName() == null || mission.getCurse().getName().isEmpty()) {
+                mission.getCurse().setName("NOT FOUND");
+            }
+            if(mission.getCurse().getThreatLevel() == null) {
+                mission.getCurse().setThreatLevel(ThreatLevel.UNKNOWN);
+            }
+        } else {
+            mission.setCurse(new Curse("NOT FOUND", ThreatLevel.UNKNOWN));
+        }
+    
+        if(mission.getSorcerers() != null) {
+            for(Sorcerer s : mission.getSorcerers()) {
+                if(s.getName() == null || s.getName().isEmpty()) {
+                    s.setName("UNKNOWN");
+                }
+                if(s.getRank() == null) {
+                    s.setRank(Rank.UNKNOWN);
+                }
+            }
+        }
+    
+        if(mission.getTechniques() != null) {
+            for(Technique t : mission.getTechniques()) {
+                if(t.getName() == null || t.getName().isEmpty()) {
+                    t.setName("UNKNOWN");
+                }
+                if(t.getType() == null) {
+                    t.setType(TechniqueType.UNKNOWN);
+                }
+                if(t.getOwnerName() == null || t.getOwnerName().isEmpty()) {
+                    t.setOwnerName("UNKNOWN");
+                }
+                if(t.getDamage() == null) {
+                    t.setDamage(0);
+                }
             }
         }
     }
