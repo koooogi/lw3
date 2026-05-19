@@ -1,8 +1,10 @@
 package com.example.lab3.Reports;
 
+import com.example.lab3.Model.Addition;
 import com.example.lab3.Model.Mission;
 import com.example.lab3.Model.Sorcerer;
 import com.example.lab3.Model.Technique;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DetailedReportDecorator extends BaseReportFormatter{
     
@@ -45,6 +47,19 @@ public class DetailedReportDecorator extends BaseReportFormatter{
             sb.append("\n");
         }
         
+
+        if (mission.getAdditions() != null && !mission.getAdditions().isEmpty()) {
+            sb.append("\n").append("*".repeat(50)).append("\n");
+            sb.append("ADDITIONAL DATA\n");
+            sb.append("*".repeat(50)).append("\n\n");
+    
+            for (Addition addition : mission.getAdditions()) {
+                sb.append("* ").append(addition.getKey()).append(":\n");
+                String formattedValue = formatJson(addition.getValue());
+                sb.append("    ").append(formattedValue.replace("\n", "\n    ")).append("\n");
+            }
+        }
+        
         if (mission.getNote() != null && !mission.getNote().isEmpty()) {
             sb.append("Note: ").append(mission.getNote()).append("\n");
         }
@@ -54,4 +69,15 @@ public class DetailedReportDecorator extends BaseReportFormatter{
         
         return sb.toString();
     }
+    
+    private String formatJson(String json){
+        if (json == null) return "null";
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            Object obj = mapper.readValue(json, Object.class);
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+        }catch (Exception e){
+        return json;
+    }
+}
 }
