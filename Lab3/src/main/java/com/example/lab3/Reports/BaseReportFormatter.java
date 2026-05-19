@@ -4,7 +4,7 @@ import com.example.lab3.Model.Mission;
 
 public abstract class BaseReportFormatter implements ReportFormatter{
     
-    protected ReportFormatter wrapped;
+    private ReportFormatter wrapped;
     
     public BaseReportFormatter(ReportFormatter wrapped) {
         this.wrapped = wrapped;

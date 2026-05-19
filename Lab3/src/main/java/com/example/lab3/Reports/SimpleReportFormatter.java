@@ -6,6 +6,7 @@ public class SimpleReportFormatter implements ReportFormatter{
     
     @Override
     public String format(Mission mission) {
+        
         StringBuilder sb = new StringBuilder();
         
         sb.append("*".repeat(50)).append("\n");
