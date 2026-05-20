@@ -120,6 +120,12 @@ public class MissionController {
     //REPORTS
     @GetMapping("/{id}/report")
     @Operation(summary = "Generate mission report. Options: simple, detailed, risk")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Report generated"),
+        @ApiResponse(responseCode = "404", description = "Mission not found"),
+        @ApiResponse(responseCode = "404", description = "Invalid report type"),
+        @ApiResponse(responseCode = "500", description = "Server error")
+    })
     public ResponseEntity<String> generateReport(@PathVariable Long id, @RequestParam(value = "type", defaultValue = "full") String type){
     
         return missionService.getMissionById(id).map(mission -> {
