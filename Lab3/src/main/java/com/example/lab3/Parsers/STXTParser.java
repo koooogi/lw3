@@ -17,7 +17,7 @@ public class STXTParser extends BaseParser{
             return false;
         }
         String name = file.getName();
-        String l_name = name.toLowerCase();
+        String l_name = name;
         
         if(!l_name.endsWith("txt")){
             return false;
@@ -53,7 +53,7 @@ public class STXTParser extends BaseParser{
         
         for(String line : lines){
             
-            line = line.trim().toLowerCase();
+            line = line.trim();
             
             if(line.startsWith("[") && line.endsWith("]")){
                 section = line.substring(1, line.length() - 1).toUpperCase();
@@ -95,7 +95,9 @@ public class STXTParser extends BaseParser{
         for(String line : lines){
             String parts[] = line.split("=", 2);
             if(parts.length == 2){
-                info.put(parts[0], parts[1]);
+                String key = parts[0].trim().toLowerCase();
+                String value = parts[1].trim();
+                info.put(key, value);
             }
         }
         validateBase(builder, info);
@@ -109,12 +111,12 @@ public class STXTParser extends BaseParser{
         for(String line : lines){
             String parts[] = line.split("=", 2);
             if(parts.length == 2){
-                String key = parts[0];
-                String value = parts[1];
+                String key = parts[0].trim().toLowerCase();
+                String value = parts[1].trim();
                 
                 if(key.equalsIgnoreCase("name")){
                     name = value;
-                } else if(key.equals("threatLevel")){
+                } else if(key.equals("threatlevel")){
                     lvl = value;
                 }
                 
