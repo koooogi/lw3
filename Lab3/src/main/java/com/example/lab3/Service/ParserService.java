@@ -34,7 +34,6 @@ public class ParserService {
         
         Parsers parser = parserGenerator.getParser(tempFile);
         
-        
         MissionBuilder builder = new MissionBuilder();
         Mission mission = parser.parse(tempFile, builder);
         
