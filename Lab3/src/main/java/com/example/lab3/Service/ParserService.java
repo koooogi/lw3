@@ -34,15 +34,6 @@ public class ParserService {
         
         Parsers parser = parserGenerator.getParser(tempFile);
         
-        if (parser == null) {
-            // Логируем для отладки
-            System.out.println("Не удалось найти парсер для файла: " + originalFilename);
-            System.out.println("Расширение: " + extension);
-            System.out.println("Временный файл: " + tempFile.getAbsolutePath());
-            throw new IllegalArgumentException(
-                "Unsupported file format: " + originalFilename
-            );
-        }
         
         MissionBuilder builder = new MissionBuilder();
         Mission mission = parser.parse(tempFile, builder);

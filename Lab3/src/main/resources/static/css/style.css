@@ -384,46 +384,6 @@ body {
     border: 1px solid #2d5a2d;
 }
 
-/* Details Content */
-.details-content {
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.detail-section {
-    margin-bottom: 25px;
-    border-bottom: 1px solid #4a7a4a;
-    padding-bottom: 15px;
-}
-
-.detail-section h3 {
-    color: #6fbf6f;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-}
-
-.detail-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.detail-table td, .detail-table th {
-    padding: 8px 12px;
-    text-align: left;
-    border-bottom: 1px solid #2d5a2d;
-}
-
-.detail-table th {
-    color: #6fbf6f;
-    font-weight: 600;
-}
-
-.detail-table tr td:first-child {
-    width: 180px;
-    font-weight: 500;
-    color: #8ba888;
-}
-
 /* Threat badges */
 .threat-SPECIAL_GRADE { color: #ff8080; font-weight: bold; }
 .threat-HIGH { color: #ffaa66; }
